@@ -1,25 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { TodoProvider } from './context/TodoContext';
+import TodoList from './components/TodoList';
+import AddTodoForm from './components/AddTodoForm';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TodoProvider>
+      <div className="flex flex-col items-center p-4 bg-gray-100 min-h-screen">
+        <h1 className="text-4xl font-bold mb-8">Todo App with Tailwind, Formik & Yup</h1>
+        <AddTodoForm />
+        <TodoList />
+      </div>
+    </TodoProvider>
   );
-}
+};
 
 export default App;
