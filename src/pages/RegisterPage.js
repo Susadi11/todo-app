@@ -29,7 +29,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
+    <div className="w-full max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg mt-16">
       <h2 className="text-2xl font-medium mb-6 text-black">Register</h2>
       <Formik
         initialValues={{ name: '', email: '', password: '' }}

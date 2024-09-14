@@ -18,7 +18,7 @@ const AddTodoForm = () => {
   return (
     <div className="w-full max-w-lg mx-auto p-8">
       <div className="bg-gray-100 rounded-lg shadow-lg p-6">
-        <h2 className="text-lg font-medium mb-6 text-gray-900">Add Todo</h2>
+        <h2 className="text-lg font-medium mb-6 text-gray-900">Add Task</h2>
         <Formik
           initialValues={{ title: '', description: '' }}
           validationSchema={TodoSchema}
@@ -58,7 +58,7 @@ const AddTodoForm = () => {
                     disabled={isSubmitting}
                     className="rounded-full bg-black px-4 py-1 text-sm font-semibold text-white transition-colors duration-300 hover:bg-white hover:text-black hover:outline hover:outline-2 hover:outline-black"
                   >
-                    Add Todo
+                    Add Task
                   </button>
                 </div>
               </div>

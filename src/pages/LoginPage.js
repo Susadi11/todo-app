@@ -29,7 +29,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="w-full max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg">
+    <div className="w-full max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg mt-16">
       <h2 className="text-2xl font-medium mb-4 text-black">Login</h2>
       <p className="text-gray-600 mb-6 text-sm">Welcome! So good to have you back!</p>
       <Formik

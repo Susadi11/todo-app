@@ -66,7 +66,7 @@ const TodoList = () => {
 
     return (
         <div className="w-full max-w-md mt-8 mx-auto">
-            <h2 className="text-2xl font-bold mb-4 text-gray-900">Todo List</h2>
+            <h2 className="text-2xl font-bold mb-4 text-gray-900">To-Do List</h2>
             <ul className="space-y-4">
                 {todos.map(todo => (
                     <li key={todo.id} className="bg-gray-100 p-4 rounded-lg shadow-md">

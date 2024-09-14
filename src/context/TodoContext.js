@@ -10,7 +10,7 @@ export const TodoProvider = ({ children }) => {
   // Load todos from localStorage based on the logged-in user
   useEffect(() => {
     if (user) {
-      const storedTodos = localStorage.getItem(`todos_${user.id}`);
+      const storedTodos = localStorage.getItem(`todos_${user.uid}`);
       if (storedTodos) {
         setTodos(JSON.parse(storedTodos));
       } else {
@@ -24,17 +24,18 @@ export const TodoProvider = ({ children }) => {
   // Save todos to localStorage whenever they change
   useEffect(() => {
     if (user) {
-      localStorage.setItem(`todos_${user.id}`, JSON.stringify(todos));
+      localStorage.setItem(`todos_${user.uid}`, JSON.stringify(todos));
     }
   }, [todos, user]);
 
   const addTodo = (title, description) => {
+    if (!user) return; // Make sure user exists
     const newTodo = {
       id: Date.now(),
       title,
       description,
       completed: false,
-      userId: user.id, // Associate todo with the logged-in user
+      userId: user.uid, // Associate todo with the logged-in user
     };
     setTodos(prevTodos => [...prevTodos, newTodo]);
   };
