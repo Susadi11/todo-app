@@ -56,7 +56,7 @@ const AddTodoForm = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="rounded-full bg-gray-300 px-4 py-1 hover:bg-gray-400 text-sm font-semibold text-gray-900"
+                    className="rounded-full bg-black px-4 py-1 text-sm font-semibold text-white transition-colors duration-300 hover:bg-white hover:text-black hover:outline hover:outline-2 hover:outline-black"
                   >
                     Add Todo
                   </button>
