@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useTodos } from '../context/TodoContext';
 
+// Validation schema for editing a todo
 const EditTodoSchema = Yup.object().shape({
   title: Yup.string()
     .min(3, 'Title must be at least 3 characters')
@@ -13,7 +14,7 @@ const EditTodoSchema = Yup.object().shape({
 });
 
 const EditTodoForm = ({ todo, onClose }) => {
-  const { editTodo } = useTodos();
+  const { editTodo } = useTodos(); // Access editTodo function from context
 
   return (
     <div className="w-full max-w-lg mx-auto p-8">
@@ -21,10 +22,10 @@ const EditTodoForm = ({ todo, onClose }) => {
         <h2 className="text-lg font-medium mb-6 text-gray-900">Edit Todo</h2>
         <Formik
           initialValues={{ title: todo.title, description: todo.description }}
-          validationSchema={EditTodoSchema}
+          validationSchema={EditTodoSchema} 
           onSubmit={(values) => {
-            editTodo(todo.id, values.title, values.description);
-            onClose();
+            editTodo(todo.id, values.title, values.description); 
+            onClose(); 
           }}
         >
           {({ isSubmitting }) => (
@@ -55,14 +56,14 @@ const EditTodoForm = ({ todo, onClose }) => {
                 <div className="mt-8">
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting} 
                     className="rounded-full bg-black px-4 py-1 text-sm font-semibold text-white transition-colors duration-300 hover:bg-white hover:text-black hover:outline hover:outline-2 hover:outline-black"
                   >
                     Save Changes
                   </button>
                   <button
                     type="button"
-                    onClick={onClose}
+                    onClick={onClose} 
                     className="ml-4 rounded-full bg-gray-300 px-4 py-1 hover:bg-gray-400 text-sm font-semibold text-gray-900"
                   >
                     Cancel

@@ -56,10 +56,12 @@ const TodoList = () => {
     const { todos, deleteTodo, toggleCompletion } = useTodos();
     const navigate = useNavigate();
 
+    // Navigate to the edit page for a specific todo
     const handleEditClick = (id) => {
         navigate(`/edit/${id}`);
     };
 
+    // Toggle the completion status of a todo item
     const handleToggle = (id) => {
         toggleCompletion(id);
     };
@@ -81,11 +83,10 @@ const TodoList = () => {
                                         todo.completed ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                                     }`}
                                 >
-                  {todo.completed ? 'Completed' : 'Incomplete'}
-                </span>
+                                    {todo.completed ? 'Completed' : 'Incomplete'}
+                                </span>
                             </div>
                             <div className="flex items-center">
-                               
                                 <IOSSwitch
                                     checked={todo.completed}
                                     onChange={() => handleToggle(todo.id)}

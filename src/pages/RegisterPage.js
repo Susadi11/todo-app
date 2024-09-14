@@ -1,12 +1,12 @@
-// src/pages/RegisterPage.js
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { Icon } from '@mdi/react';  // Import Icon from @mdi/react
-import { mdiAccount, mdiEmail, mdiEye, mdiEyeOff } from '@mdi/js';  // Import Material Community Icons
+import { Icon } from '@mdi/react';  
+import { mdiAccount, mdiEmail, mdiEye, mdiEyeOff } from '@mdi/js';  
 
+// Validation schema for the registration form using Yup
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required('Name is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -14,16 +14,18 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const RegisterPage = () => {
-  const { register, user } = useAuth();
-  const navigate = useNavigate();
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const { register, user } = useAuth(); 
+  const navigate = useNavigate(); 
+  const [passwordVisible, setPasswordVisible] = useState(false); 
 
+  // Redirect to the home page if the user is already logged in
   useEffect(() => {
     if (user) {
       navigate('/');
     }
   }, [user, navigate]);
 
+  // Toggle password visibility
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -32,11 +34,11 @@ const RegisterPage = () => {
     <div className="w-full max-w-lg mx-auto p-8 bg-white shadow-lg rounded-lg mt-16">
       <h2 className="text-2xl font-medium mb-6 text-black">Register</h2>
       <Formik
-        initialValues={{ name: '', email: '', password: '' }}
-        validationSchema={RegisterSchema}
+        initialValues={{ name: '', email: '', password: '' }} // Initial values for the form fields
+        validationSchema={RegisterSchema} // Validation schema
         onSubmit={async (values) => {
-          await register(values.email, values.password);
-          navigate('/login'); // Redirect to login after registration
+          await register(values.email, values.password); 
+          navigate('/login'); 
         }}
       >
         <Form>
@@ -80,7 +82,6 @@ const RegisterPage = () => {
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg text-gray-900" 
                 placeholder="***********"
               />
-              
               <div 
                 className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" 
                 onClick={togglePasswordVisibility}

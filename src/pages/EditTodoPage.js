@@ -14,7 +14,6 @@ const EditTodoPage = () => {
     if (foundTodo) {
       setTodo(foundTodo);
     } else {
-      // Redirect to the todo list page if the todo is not found
       navigate('/');
     }
   }, [id, todos, navigate]);

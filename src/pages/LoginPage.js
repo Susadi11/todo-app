@@ -1,29 +1,31 @@
-// src/pages/LoginPage.js
 import React, { useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { Icon } from '@mdi/react';  // Import Icon from @mdi/react
-import { mdiEye, mdiEyeOff } from '@mdi/js';  // Import Material Community Icons
+import { Icon } from '@mdi/react';  
+import { mdiEye, mdiEyeOff } from '@mdi/js';  
 
+// Validation schema for the login form using Yup
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string().required('Password is required'),
 });
 
 const LoginPage = () => {
-  const { login, user } = useAuth();
-  const navigate = useNavigate();
-  const [error, setError] = useState('');
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  const { login, user } = useAuth(); 
+  const navigate = useNavigate(); 
+  const [error, setError] = useState(''); 
+  const [passwordVisible, setPasswordVisible] = useState(false); 
 
+  // Redirect to the home page if the user is already logged in
   useEffect(() => {
     if (user) {
       navigate('/');
     }
   }, [user, navigate]);
 
+  // Toggle password visibility
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -33,14 +35,15 @@ const LoginPage = () => {
       <h2 className="text-2xl font-medium mb-4 text-black">Login</h2>
       <p className="text-gray-600 mb-6 text-sm">Welcome! So good to have you back!</p>
       <Formik
-        initialValues={{ email: '', password: '' }}
-        validationSchema={LoginSchema}
+        initialValues={{ email: '', password: '' }} // Initial values for the form fields
+        validationSchema={LoginSchema} // Validation schema
         onSubmit={async (values) => {
+          // Attempt to log in the user and handle redirection or error
           const success = await login(values.email, values.password);
           if (success) {
-            navigate('/');  // Redirect to the todo page after login
+            navigate('/');  
           } else {
-            setError('Invalid email or password');
+            setError('Invalid email or password'); 
           }
         }}
       >

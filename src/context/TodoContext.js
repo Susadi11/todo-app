@@ -1,11 +1,12 @@
 import { createContext, useState, useEffect, useContext } from 'react';
 import { useAuth } from './AuthContext';
 
+// Create a TodoContext for managing todos
 const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
-  const { user } = useAuth(); // Get the current authenticated user
-  const [todos, setTodos] = useState([]);
+  const { user } = useAuth(); 
+  const [todos, setTodos] = useState([]); 
 
   // Load todos from localStorage based on the logged-in user
   useEffect(() => {
@@ -14,10 +15,10 @@ export const TodoProvider = ({ children }) => {
       if (storedTodos) {
         setTodos(JSON.parse(storedTodos));
       } else {
-        setTodos([]); // Ensure todos is an empty array if no data
+        setTodos([]); 
       }
     } else {
-      setTodos([]); // Clear todos if no user is logged in
+      setTodos([]); 
     }
   }, [user]);
 
@@ -28,18 +29,20 @@ export const TodoProvider = ({ children }) => {
     }
   }, [todos, user]);
 
+  // Add a new todo item
   const addTodo = (title, description) => {
-    if (!user) return; // Make sure user exists
+    if (!user) return; 
     const newTodo = {
       id: Date.now(),
       title,
       description,
       completed: false,
-      userId: user.uid, // Associate todo with the logged-in user
+      userId: user.uid, 
     };
     setTodos(prevTodos => [...prevTodos, newTodo]);
   };
 
+  // Edit an existing todo item
   const editTodo = (id, updatedTitle, updatedDescription) => {
     setTodos(prevTodos => 
       prevTodos.map(todo => 
@@ -48,10 +51,12 @@ export const TodoProvider = ({ children }) => {
     );
   };
 
+  // Delete a todo item
   const deleteTodo = (id) => {
     setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
   };
 
+  // Toggle the completion status of a todo item
   const toggleCompletion = (id) => {
     setTodos(prevTodos => 
       prevTodos.map(todo => 

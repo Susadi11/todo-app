@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useTodos } from '../context/TodoContext';
 
+// Validation schema for adding a todo
 const TodoSchema = Yup.object().shape({
   title: Yup.string()
     .min(3, 'Title must be at least 3 characters')
@@ -13,7 +14,7 @@ const TodoSchema = Yup.object().shape({
 });
 
 const AddTodoForm = () => {
-  const { addTodo } = useTodos();
+  const { addTodo } = useTodos(); // Access addTodo function from context
 
   return (
     <div className="w-full max-w-lg mx-auto p-8">
@@ -21,10 +22,10 @@ const AddTodoForm = () => {
         <h2 className="text-lg font-medium mb-6 text-gray-900">Add Task</h2>
         <Formik
           initialValues={{ title: '', description: '' }}
-          validationSchema={TodoSchema}
+          validationSchema={TodoSchema} 
           onSubmit={(values, { resetForm }) => {
             addTodo(values.title, values.description);
-            resetForm();
+            resetForm(); 
           }}
         >
           {({ isSubmitting }) => (
@@ -55,7 +56,7 @@ const AddTodoForm = () => {
                 <div className="mt-8">
                   <button
                     type="submit"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting} 
                     className="rounded-full bg-black px-4 py-1 text-sm font-semibold text-white transition-colors duration-300 hover:bg-white hover:text-black hover:outline hover:outline-2 hover:outline-black"
                   >
                     Add Task

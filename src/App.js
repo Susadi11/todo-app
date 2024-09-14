@@ -1,4 +1,3 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { TodoProvider } from './context/TodoContext';
@@ -7,7 +6,7 @@ import TodoPage from './pages/TodoPage';
 import EditTodoPage from './pages/EditTodoPage';
 import RegisterPage from './pages/RegisterPage';
 import LoginPage from './pages/LoginPage';
-import PrivateRoute from './components/PrivateRoute'; // Import the PrivateRoute
+import PrivateRoute from './components/PrivateRoute'; 
 
 const App = () => {
   return (
