@@ -1,77 +1,58 @@
 import { createContext, useState, useEffect, useContext } from 'react';
+import { useAuth } from './AuthContext';
 
 const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
-  const [todos, setTodos] = useState(() => {
-    console.log('Initializing todos state');
-    const storedTodos = localStorage.getItem('todos');
-    console.log('Stored todos from localStorage:', storedTodos);
-    if (storedTodos) {
-      try {
-        const parsedTodos = JSON.parse(storedTodos);
-        console.log('Parsed todos:', parsedTodos);
-        return parsedTodos;
-      } catch (error) {
-        console.error('Error parsing stored todos:', error);
-        return [];
+  const { user } = useAuth(); // Get the current authenticated user
+  const [todos, setTodos] = useState([]);
+
+  // Load todos from localStorage based on the logged-in user
+  useEffect(() => {
+    if (user) {
+      const storedTodos = localStorage.getItem(`todos_${user.id}`);
+      if (storedTodos) {
+        setTodos(JSON.parse(storedTodos));
       }
     }
-    return [];
-  });
+  }, [user]);
 
+  // Save todos to localStorage whenever they change
   useEffect(() => {
-    console.log('Todos state changed, current todos:', todos);
-    localStorage.setItem('todos', JSON.stringify(todos));
-    console.log('Todos saved to localStorage');
-  }, [todos]);
+    if (user && todos.length) {
+      localStorage.setItem(`todos_${user.id}`, JSON.stringify(todos));
+    }
+  }, [todos, user]);
 
   const addTodo = (title, description) => {
-    console.log('Adding new todo:', { title, description });
     const newTodo = {
       id: Date.now(),
       title,
       description,
       completed: false,
+      userId: user.id, // Associate todo with the logged-in user
     };
-    setTodos(prevTodos => {
-      const updatedTodos = [...prevTodos, newTodo];
-      console.log('Updated todos after adding:', updatedTodos);
-      return updatedTodos;
-    });
+    setTodos(prevTodos => [...prevTodos, newTodo]);
   };
 
   const editTodo = (id, updatedTitle, updatedDescription) => {
-    console.log('Editing todo:', { id, updatedTitle, updatedDescription });
-    setTodos(prevTodos => {
-      const updatedTodos = prevTodos.map(todo =>
-        todo.id === id
-          ? { ...todo, title: updatedTitle, description: updatedDescription }
-          : todo
-      );
-      console.log('Updated todos after editing:', updatedTodos);
-      return updatedTodos;
-    });
+    setTodos(prevTodos => 
+      prevTodos.map(todo => 
+        todo.id === id ? { ...todo, title: updatedTitle, description: updatedDescription } : todo
+      )
+    );
   };
 
   const deleteTodo = (id) => {
-    console.log('Deleting todo with id:', id);
-    setTodos(prevTodos => {
-      const updatedTodos = prevTodos.filter(todo => todo.id !== id);
-      console.log('Updated todos after deleting:', updatedTodos);
-      return updatedTodos;
-    });
+    setTodos(prevTodos => prevTodos.filter(todo => todo.id !== id));
   };
 
   const toggleCompletion = (id) => {
-    console.log('Toggling completion for todo with id:', id);
-    setTodos(prevTodos => {
-      const updatedTodos = prevTodos.map(todo =>
+    setTodos(prevTodos => 
+      prevTodos.map(todo => 
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      );
-      console.log('Updated todos after toggling completion:', updatedTodos);
-      return updatedTodos;
-    });
+      )
+    );
   };
 
   return (
