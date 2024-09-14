@@ -13,13 +13,17 @@ export const TodoProvider = ({ children }) => {
       const storedTodos = localStorage.getItem(`todos_${user.id}`);
       if (storedTodos) {
         setTodos(JSON.parse(storedTodos));
+      } else {
+        setTodos([]); // Ensure todos is an empty array if no data
       }
+    } else {
+      setTodos([]); // Clear todos if no user is logged in
     }
   }, [user]);
 
   // Save todos to localStorage whenever they change
   useEffect(() => {
-    if (user && todos.length) {
+    if (user) {
       localStorage.setItem(`todos_${user.id}`, JSON.stringify(todos));
     }
   }, [todos, user]);

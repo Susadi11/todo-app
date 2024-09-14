@@ -49,9 +49,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    setUser(null);
+    // Clear the logged-in user data from localStorage
     localStorage.removeItem('loggedInUser');
+    
+    // Update state to reflect the user is logged out
+    setUser(null);
   };
+  
 
   return (
     <AuthContext.Provider value={{ user, register, login, logout, loading }}>
